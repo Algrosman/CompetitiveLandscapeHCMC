@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Southern Vietnam Healthcare — Competitive Landscape Intelligence</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #060b16;
+  --bg-card: rgba(255,255,255,0.025);
+  --bg-card-hover: rgba(255,255,255,0.045);
+  --border: rgba(255,255,255,0.06);
+  --text-primary: #e8ecf2;
+  --text-secondary: rgba(180,200,220,0.6);
+  --text-muted: rgba(180,200,220,0.35);
+  --accent-cyan: #4FC3F7;
+  --accent-green: #66BB6A;
+  --accent-amber: #FFB74D;
+  --accent-purple: #AB47BC;
+  --accent-red: #EF5350;
+  --accent-teal: #26C6DA;
+  --accent-gold: #FFD700;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-body: 'DM Sans', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--bg-primary); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #080e1e 0%, #0f1f3d 40%, #142d52 100%);
+  padding: 40px 32px 28px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(79,195,247,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.header-title { font-family: var(--font-display); font-size: 32px; font-weight: 800; color: #fff; line-height: 1.1; }
+.header-title span { color: var(--accent-cyan); }
+.header-subtitle { font-family: var(--font-display); font-size: 22px; font-weight: 600; color: rgba(255,255,255,0.9); margin-top: 4px; }
+.header-meta { font-family: var(--font-mono); font-size: 11px; color: rgba(180,200,220,0.45); margin-top: 10px; letter-spacing: 0.5px; }
+
+/* Tab bar */
+.tab-bar {
+  display: flex;
+  background: rgba(6,11,22,0.95);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(12px);
+}
+.tab-btn {
+  padding: 14px 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.25s;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.tab-btn:hover { color: var(--text-secondary); }
+.tab-btn.active { color: var(--accent-cyan); border-bottom-color: var(--accent-cyan); font-weight: 600; }
+.tab-btn.active.accent { color: var(--accent-amber); border-bottom-color: var(--accent-amber); background: rgba(255,183,77,0.04); }
+
+/* Content */
+.content { max-width: 1240px; margin: 0 auto; padding: 28px 24px; }
+.tab-panel { display: none; animation: fadeUp 0.4s ease; }
+.tab-panel.active { display: block; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 18px;
+  transition: border-color 0.3s;
+}
+.card:hover { border-color: rgba(255,255,255,0.1); }
+.card-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.card-accent-top { border-top: 2px solid var(--accent-amber); }
+.card-accent-teal { border-top: 2px solid var(--accent-teal); }
+
+/* Grid */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+
+/* KPIs */
+.kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: 12px; margin-bottom: 22px; }
+.kpi-box {
+  background: rgba(255,255,255,0.025);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 14px;
+  text-align: center;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.kpi-box:hover { transform: translateY(-2px); border-color: rgba(255,255,255,0.12); }
+.kpi-value { font-family: var(--font-display); font-size: 26px; font-weight: 800; color: #fff; line-height: 1; }
+.kpi-label { font-family: var(--font-mono); font-size: 9px; color: var(--text-muted); margin-top: 8px; text-transform: uppercase; letter-spacing: 1.2px; }
+
+/* Badge */
+.badge {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+/* Buttons */
+.toggle-btn {
+  padding: 7px 16px;
+  border-radius: 22px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+.toggle-btn.on { border-color: var(--accent-amber); background: rgba(255,183,77,0.12); color: var(--accent-amber); }
+.spec-btn {
+  padding: 9px 22px;
+  border-radius: 24px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: transparent;
+  color: var(--text-muted);
+}
+.spec-btn.active { border: 2px solid var(--accent-amber); background: rgba(255,183,77,0.12); color: var(--accent-amber); }
+
+/* Tables */
+.data-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.data-table th {
+  text-align: right;
+  padding: 10px 10px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.data-table th:first-child { text-align: left; }
+.data-table td { padding: 10px 10px; border-bottom: 1px solid rgba(255,255,255,0.03); color: #fff; }
+.data-table td:first-child { color: var(--text-secondary); font-weight: 500; }
+.data-table td:not(:first-child) { text-align: right; }
+.data-table tr:last-child td { border-bottom: none; }
+
+/* Savings pill */
+.savings-pill {
+  background: rgba(102,187,106,0.12);
+  color: var(--accent-green);
+  font-weight: 800;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+}
+
+/* Hospital cards */
+.hosp-card {
+  background: rgba(255,255,255,0.02);
+  border-radius: 14px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.25s;
+  border-left: 3px solid transparent;
+}
+.hosp-card:hover { background: rgba(255,255,255,0.04); }
+.hosp-card.selected { background: rgba(255,255,255,0.05); }
+
+/* Sliders */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 5px;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+  background: rgba(255,255,255,0.08);
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent-amber);
+  border: 2px solid var(--bg-primary);
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(255,183,77,0.35);
+}
+input[type="range"]::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: 50%;
+  background: var(--accent-amber); border: 2px solid var(--bg-primary); cursor: pointer;
+}
+
+/* Mini label */
+.mini-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+/* Positioning map */
+.pos-map {
+  position: relative;
+  height: 420px;
+  background: rgba(0,0,0,0.25);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.pos-bubble {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  transition: transform 0.3s;
+}
+.pos-bubble:hover { transform: translate(-50%, -50%) scale(1.15); }
+.pos-dot {
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 auto;
+}
+.pos-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  margin-top: 5px;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+}
+
+/* Slider card in simulator */
+.sim-hosp-card {
+  border-radius: 12px;
+  padding: 16px;
+  transition: border-color 0.2s;
+}
+
+/* Chart containers */
+.chart-container { position: relative; width: 100%; }
+.chart-container canvas { width: 100% !important; }
+
+/* Bar for progress indicators */
+.progress-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.progress-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+
+/* Star rating */
+.star-rating { letter-spacing: 1px; color: #FFD700; }
+.star-rating .dim { opacity: 0.2; }
+.star-rating .val { font-family: var(--font-mono); font-size: 11px; margin-left: 4px; opacity: 0.6; color: var(--text-secondary); }
+
+/* Swot colors */
+.swot-s { background: rgba(102,187,106,0.06); border-color: rgba(102,187,106,0.15); }
+.swot-w { background: rgba(239,83,80,0.06); border-color: rgba(239,83,80,0.15); }
+.swot-o { background: rgba(79,195,247,0.06); border-color: rgba(79,195,247,0.15); }
+.swot-t { background: rgba(255,183,77,0.06); border-color: rgba(255,183,77,0.15); }
+
+/* Warning */
+.alloc-warn {
+  background: rgba(239,83,80,0.08);
+  border: 1px solid rgba(239,83,80,0.25);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 12px;
+  color: var(--accent-red);
+  margin-bottom: 16px;
+  font-family: var(--font-mono);
+  display: none;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 24px 16px 36px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: rgba(180,200,220,0.18);
+  letter-spacing: 0.5px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header { padding: 28px 18px 22px; }
+  .header-title { font-size: 24px; }
+  .header-subtitle { font-size: 17px; }
+  .content { padding: 18px 14px; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .kpi-row { grid-template-columns: repeat(3, 1fr); }
+  .pos-map { height: 340px; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title"><span>Southern Vietnam</span> Healthcare</div>
+  <div class="header-subtitle">Competitive Landscape Intelligence</div>
+  <div class="header-meta">HCMC &amp; surrounding provinces · Private &amp; public hospital analysis · Market data estimates 2024–2025</div>
+</div>
+
+<div class="tab-bar" id="tabBar"></div>
+
+<div class="content" id="contentArea"></div>
+
+<div class="footer">Data sources: MOH Vietnam, hospital disclosures, Fitch Solutions, BMI Research, analyst estimates. All figures are approximations for competitive analysis.</div>
+
+<script>
+// ═══════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════
+const HOSPITALS = [
+  { id:"fv", name:"FV Hospital", short:"FV", type:"Private International", founded:2003, beds:220, ownership:"Foreign-invested (French-Vietnamese)", jci:true, jciYear:2016, location:"District 7", specialties:["Cardiology","Oncology","Orthopedics","IVF","Neurology"], estRevenue:120, estPatients:350000, intlPct:30, avgCost:150, premium:true, expansion:"Phase 3 expansion underway, 400-bed target", strength:{quality:92,tech:88,brand:90,access:65,price:40,intl:95}, share:18, color:"#1B6B93", growth:12, staff:1200, doctors:250, insurers:45, sat:4.5, digital:82 },
+  { id:"vinmec", name:"Vinmec Central Park", short:"Vinmec", type:"Private Domestic", founded:2014, beds:300, ownership:"Vingroup (VIC)", jci:true, jciYear:2018, location:"Binh Thanh", specialties:["Oncology","Stem Cell","Cardiology","Pediatrics","IVF"], estRevenue:150, estPatients:500000, intlPct:15, avgCost:120, premium:true, expansion:"AI diagnostics lab, gene therapy center", strength:{quality:90,tech:95,brand:92,access:75,price:50,intl:80}, share:22, color:"#2E8B57", growth:18, staff:1800, doctors:350, insurers:50, sat:4.4, digital:91 },
+  { id:"tamanh", name:"Tam Anh Hospital", short:"Tam Anh", type:"Private Domestic", founded:2019, beds:500, ownership:"Private (Dr. Nguyen Van Phung)", jci:false, jciYear:null, location:"District 8 & Thu Duc", specialties:["Cardiology","IVF","Orthopedics","Neurology","Urology"], estRevenue:100, estPatients:600000, intlPct:5, avgCost:60, premium:false, expansion:"Rapid multi-site expansion, 1000-bed Thu Duc campus", strength:{quality:82,tech:80,brand:78,access:92,price:80,intl:35}, share:16, color:"#E07B39", growth:35, staff:2500, doctors:500, insurers:30, sat:4.2, digital:70 },
+  { id:"aih", name:"AIH Hospital", short:"AIH", type:"Private International", founded:2017, beds:120, ownership:"Hoang Anh Gia Lai Group (HAG)", jci:false, jciYear:null, location:"District 2 (Thu Duc)", specialties:["General Surgery","Orthopedics","Cardiology","Gastro","Aesthetics"], estRevenue:40, estPatients:120000, intlPct:20, avgCost:130, premium:true, expansion:"Specialty center expansion, medical tourism packages", strength:{quality:80,tech:75,brand:68,access:55,price:45,intl:78}, share:5, color:"#8E44AD", growth:8, staff:450, doctors:100, insurers:25, sat:4.3, digital:65 },
+  { id:"choray", name:"Cho Ray Hospital", short:"Cho Ray", type:"Public Flagship", founded:1900, beds:2200, ownership:"Ministry of Health", jci:false, jciYear:null, location:"District 5", specialties:["Trauma","Organ Transplant","Oncology","Cardiology","Neurosurgery"], estRevenue:200, estPatients:2500000, intlPct:2, avgCost:15, premium:false, expansion:"Cho Ray 2 (Binh Chanh) 1000-bed campus", strength:{quality:75,tech:70,brand:85,access:95,price:95,intl:20}, share:25, color:"#C0392B", growth:5, staff:5000, doctors:800, insurers:10, sat:3.5, digital:40 },
+  { id:"umc", name:"UMC Medical Center", short:"UMC", type:"Public-Private", founded:2020, beds:200, ownership:"University Medical Center (Hybrid)", jci:false, jciYear:null, location:"District 3", specialties:["Oncology","Cardiology","Transplant","Trauma","Research"], estRevenue:80, estPatients:400000, intlPct:5, avgCost:40, premium:false, expansion:"Research-led specialty clusters", strength:{quality:80,tech:78,brand:75,access:80,price:75,intl:40}, share:10, color:"#2980B9", growth:10, staff:2000, doctors:450, insurers:15, sat:3.8, digital:55 },
+  { id:"hanhphuc", name:"Hanh Phuc Int'l Hospital", short:"Hanh Phuc", type:"Private Domestic", founded:2016, beds:150, ownership:"Private", jci:false, jciYear:null, location:"Binh Duong", specialties:["Obstetrics","Pediatrics","IVF","Neonatal","Women's Health"], estRevenue:35, estPatients:150000, intlPct:8, avgCost:80, premium:false, expansion:"Niche women's & children's brand growth", strength:{quality:78,tech:72,brand:65,access:60,price:60,intl:50}, share:4, color:"#E91E63", growth:15, staff:500, doctors:110, insurers:20, sat:4.3, digital:60 },
+];
+
+const SPECIALTY_POOLS = {
+  hvti: { label:"Heart / Vascular / Thoracic Interventional", dom:420000, intl:18000, gDom:8, gIntl:18, rDom:2800, rIntl:8500 },
+  oncology: { label:"Oncology", dom:310000, intl:14000, gDom:10, gIntl:22, rDom:4200, rIntl:12000 },
+  neurology: { label:"Neurology", dom:250000, intl:9000, gDom:7, gIntl:15, rDom:2200, rIntl:7000 },
+};
+const SIM_IDS = ["fv","vinmec","tamanh","choray","aih"];
+const DEFAULT_SHARES = {
+  hvti:      { fv:{d:12,i:30}, vinmec:{d:18,i:25}, tamanh:{d:22,i:5}, choray:{d:35,i:3}, aih:{d:5,i:15} },
+  oncology:  { fv:{d:14,i:32}, vinmec:{d:22,i:28}, tamanh:{d:10,i:3}, choray:{d:38,i:5}, aih:{d:4,i:12} },
+  neurology: { fv:{d:15,i:28}, vinmec:{d:20,i:30}, tamanh:{d:18,i:5}, choray:{d:32,i:4}, aih:{d:6,i:14} },
+};
+
+const TOURISM_SOURCES = [
+  { country:"Cambodia", patients:45000, spend:3200, growth:12, procs:"General surgery, dental, diagnostics", color:"#4FC3F7" },
+  { country:"Laos", patients:18000, spend:2800, growth:10, procs:"Cardiology, cancer screening, IVF", color:"#66BB6A" },
+  { country:"Japan", patients:12000, spend:8500, growth:25, procs:"Dental, aesthetics, health checks", color:"#EF5350" },
+  { country:"S. Korea", patients:8000, spend:7200, growth:22, procs:"IVF, dental, orthopedics", color:"#AB47BC" },
+  { country:"Taiwan", patients:6000, spend:5800, growth:18, procs:"Dental, health screening, aesthetics", color:"#FFB74D" },
+  { country:"China", patients:15000, spend:6000, growth:30, procs:"IVF, oncology, aesthetics", color:"#FF7043" },
+  { country:"AU/NZ Viet Kieu", patients:10000, spend:4500, growth:15, procs:"Dental, aesthetics, orthopedics", color:"#26C6DA" },
+  { country:"US/EU Viet Kieu", patients:8000, spend:5000, growth:14, procs:"Dental, IVF, aesthetics", color:"#78909C" },
+];
+
+const COST_COMP = [
+  { proc:"Coronary Bypass", hcmc:12000, bkk:26000, sg:75000, kl:20000, seoul:40000 },
+  { proc:"Hip Replacement", hcmc:7500, bkk:17000, sg:35000, kl:12000, seoul:22000 },
+  { proc:"IVF Cycle", hcmc:4000, bkk:8000, sg:15000, kl:6500, seoul:10000 },
+  { proc:"Dental Implant", hcmc:800, bkk:1800, sg:3500, kl:1500, seoul:2200 },
+  { proc:"Full Health Check", hcmc:250, bkk:500, sg:1200, kl:400, seoul:700 },
+  { proc:"Brain Tumor Surgery", hcmc:8000, bkk:22000, sg:60000, kl:18000, seoul:35000 },
+  { proc:"Cataract Surgery", hcmc:600, bkk:2000, sg:5000, kl:1800, seoul:3000 },
+];
+
+const TOURISM_PROJ = [
+  { year:"2022", pat:80, rev:280 },{ year:"2023", pat:120, rev:420 },{ year:"2024", pat:155, rev:580 },
+  { year:"2025E", pat:200, rev:780 },{ year:"2026E", pat:260, rev:1050 },{ year:"2027E", pat:340, rev:1400 },{ year:"2028E", pat:430, rev:1850 },
+];
+
+const HOSP_TOURISM = [
+  { name:"FV", share:32, focus:"Full-service international, JCI premium", color:"#1B6B93" },
+  { name:"Vinmec", share:22, focus:"Tech-forward, Vinpearl bundling", color:"#2E8B57" },
+  { name:"AIH", share:14, focus:"Medical tourism packages, bilingual", color:"#8E44AD" },
+  { name:"Hanh Phuc", share:8, focus:"IVF/fertility niche tourism", color:"#E91E63" },
+  { name:"Others", share:24, focus:"Dental clinics, aesthetics centers", color:"#546E7A" },
+];
+
+const TRENDS = [
+  { y:"2019", priv:32, pub:68, mt:150, dh:20 },{ y:"2020", priv:33, pub:67, mt:60, dh:45 },
+  { y:"2021", priv:36, pub:64, mt:80, dh:65 },{ y:"2022", priv:38, pub:62, mt:180, dh:72 },
+  { y:"2023", priv:40, pub:60, mt:280, dh:80 },{ y:"2024", priv:42, pub:58, mt:380, dh:85 },
+  { y:"2025E", priv:45, pub:55, mt:480, dh:90 },
+];
+
+const SWOT = {
+  s:["Young, growing urban population (22M+ in southern region)","Government prioritization of healthcare modernization","Strong private investment pipeline (Vingroup, foreign PE)","Medical tourism cost advantage vs. Singapore/Thailand"],
+  w:["Severe physician shortage (9 doctors per 10,000 people)","Public hospital overcrowding (300%+ capacity common)","Limited health data infrastructure and interoperability","Fragmented regulatory framework for private sector"],
+  o:["Medical tourism from ASEAN, Japan, Korea","Digital health / telemedicine post-COVID adoption","Specialty care gaps (oncology, cardiology, neurology)","Public-private partnership models expanding","AI diagnostics and health-tech startup ecosystem"],
+  t:["Brain drain of physicians to private sector / abroad","Regulatory uncertainty on foreign ownership caps","Rising costs eroding affordability advantage","Competition from Thai, Malaysian medical tourism hubs"],
+};
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let activeTab = 'overview';
+let selectedHosp = null;
+let compareSet = new Set(['fv','vinmec','tamanh']);
+let simSpec = 'hvti';
+let simYear = 0;
+let simShares = JSON.parse(JSON.stringify(DEFAULT_SHARES));
+let charts = {};
+
+// ═══════════════════════════════════════
+// HELPERS
+// ═══════════════════════════════════════
+const $ = sel => document.querySelector(sel);
+const $$ = sel => document.querySelectorAll(sel);
+const fmt = n => n.toLocaleString();
+const fmtK = n => n >= 1000 ? (n/1000).toFixed(0)+'K' : n;
+const H = id => HOSPITALS.find(h => h.id === id);
+
+function destroyCharts() { Object.values(charts).forEach(c => c.destroy()); charts = {}; }
+
+function makeChart(canvasId, config) {
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return;
+  if (charts[canvasId]) charts[canvasId].destroy();
+  config.options = config.options || {};
+  config.options.responsive = true;
+  config.options.maintainAspectRatio = false;
+  config.options.plugins = config.options.plugins || {};
+  config.options.plugins.legend = config.options.plugins.legend || {};
+  config.options.plugins.legend.labels = { color: 'rgba(180,200,220,0.5)', font: { family: "'IBM Plex Mono'", size: 10 }, boxWidth: 12, padding: 12 };
+  config.options.plugins.tooltip = config.options.plugins.tooltip || {};
+  config.options.plugins.tooltip.backgroundColor = 'rgba(15,20,30,0.95)';
+  config.options.plugins.tooltip.borderColor = 'rgba(255,255,255,0.1)';
+  config.options.plugins.tooltip.borderWidth = 1;
+  config.options.plugins.tooltip.titleFont = { family: "'DM Sans'", size: 12, weight: 700 };
+  config.options.plugins.tooltip.bodyFont = { family: "'IBM Plex Mono'", size: 11 };
+  config.options.plugins.tooltip.padding = 10;
+  config.options.plugins.tooltip.cornerRadius = 8;
+  const defaultScale = { ticks: { color: 'rgba(180,200,220,0.4)', font: { family: "'IBM Plex Mono'", size: 10 } }, grid: { color: 'rgba(255,255,255,0.04)' }, border: { display: false } };
+  if (config.options.scales) {
+    Object.keys(config.options.scales).forEach(k => {
+      config.options.scales[k] = { ...defaultScale, ...config.options.scales[k], ticks: { ...defaultScale.ticks, ...(config.options.scales[k].ticks||{}) }, grid: { ...defaultScale.grid, ...(config.options.scales[k].grid||{}) } };
+    });
+  }
+  charts[canvasId] = new Chart(ctx, config);
+  return charts[canvasId];
+}
+
+function stars(r) {
+  const f = Math.floor(r), half = r%1>=0.3;
+  return `<span class="star-rating">${'★'.repeat(f)}${half?'½':''}<span class="dim">${'★'.repeat(5-f-(half?1:0))}</span><span class="val">${r}</span></span>`;
+}
+
+function badge(text, color) {
+  return `<span class="badge" style="background:${color}22;color:${color};border:1px solid ${color}44">${text}</span>`;
+}
+
+// ═══════════════════════════════════════
+// TABS
+// ═══════════════════════════════════════
+const TABS = [
+  { id:'overview', label:'Market Overview' },
+  { id:'hospitals', label:'Hospital Profiles' },
+  { id:'compare', label:'Competitive Matrix' },
+  { id:'positioning', label:'Strategic Map' },
+  { id:'simulator', label:'⚡ Capture Simulator', accent:true },
+  { id:'medtourism', label:'✈️ Med Tourism', accent:true },
+  { id:'trends', label:'Trends & Outlook' },
+  { id:'swot', label:'SWOT' },
+];
+
+function renderTabBar() {
+  const bar = $('#tabBar');
+  bar.innerHTML = TABS.map(t => `<button class="tab-btn ${t.id===activeTab?'active':''} ${t.accent?'accent':''}" data-tab="${t.id}">${t.label}</button>`).join('');
+  bar.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+}
+
+function switchTab(id) {
+  activeTab = id;
+  renderTabBar();
+  renderContent();
+}
+
+// ═══════════════════════════════════════
+// RENDER MAIN
+// ═══════════════════════════════════════
+function renderContent() {
+  destroyCharts();
+  const area = $('#contentArea');
+  const renderers = { overview: renderOverview, hospitals: renderHospitals, compare: renderCompare, positioning: renderPositioning, simulator: renderSimulator, medtourism: renderMedTourism, trends: renderTrends, swot: renderSwot };
+  area.innerHTML = `<div class="tab-panel active">${(renderers[activeTab] || renderers.overview)()}</div>`;
+  // post-render chart bindings
+  setTimeout(() => {
+    const bindings = { overview: bindOverview, compare: bindCompare, positioning: bindPositioning, simulator: bindSimulator, medtourism: bindMedTourism, trends: bindTrends };
+    if (bindings[activeTab]) bindings[activeTab]();
+  }, 50);
+}
+
+// ═══════════════════════════════════════
+// OVERVIEW
+// ═══════════════════════════════════════
+function renderOverview() {
+  return `
+  <div class="kpi-row">
+    ${[{v:'$4,200M',l:'Market Size (Southern VN)',c:'var(--accent-cyan)'},{v:'12.5%',l:'Healthcare CAGR',c:'var(--accent-green)'},{v:'22M',l:'Population Served',c:'#fff'},{v:'400',l:'Hospitals',c:'#fff'},{v:'2.8',l:'Beds / 1,000',c:'#fff'},{v:'45%',l:'Out-of-Pocket Spend',c:'#fff'}].map(k=>`<div class="kpi-box"><div class="kpi-value" style="color:${k.c}">${k.v}</div><div class="kpi-label">${k.l}</div></div>`).join('')}
+  </div>
+  <div class="grid-2">
+    <div class="card"><div class="card-title">📊 Market Share by Hospital</div><div class="chart-container" style="height:280px"><canvas id="chartSharePie"></canvas></div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:10px">${HOSPITALS.map(h=>`<span style="display:flex;align-items:center;gap:5px;font-size:11px"><span style="width:8px;height:8px;border-radius:50%;background:${h.color}"></span><span style="color:var(--text-secondary)">${h.short} ${h.share}%</span></span>`).join('')}</div>
+    </div>
+    <div class="card"><div class="card-title">💰 Revenue vs. Patient Volume</div><div class="chart-container" style="height:300px"><canvas id="chartScatter"></canvas></div></div>
+  </div>
+  <div class="card"><div class="card-title">🏥 Capacity &amp; Infrastructure</div><div class="chart-container" style="height:260px"><canvas id="chartCapacity"></canvas></div></div>`;
+}
+
+function bindOverview() {
+  makeChart('chartSharePie', {
+    type: 'doughnut',
+    data: { labels: HOSPITALS.map(h=>h.short), datasets: [{ data: HOSPITALS.map(h=>h.share), backgroundColor: HOSPITALS.map(h=>h.color), borderWidth: 0 }] },
+    options: { cutout: '55%', plugins: { legend: { display: false } } }
+  });
+  makeChart('chartScatter', {
+    type: 'bubble',
+    data: { datasets: HOSPITALS.map(h=>({ label: h.short, data: [{ x: Math.round(h.estPatients/1000), y: h.estRevenue, r: Math.max(6, h.beds/30) }], backgroundColor: h.color+'88', borderColor: h.color })) },
+    options: { scales: { x: { title: { display:true, text:'Annual Patients (K)', color:'rgba(180,200,220,0.3)', font:{size:10} } }, y: { title: { display:true, text:'Revenue ($M)', color:'rgba(180,200,220,0.3)', font:{size:10} } } }, plugins: { legend: { display: false } } }
+  });
+  makeChart('chartCapacity', {
+    type: 'bar',
+    data: { labels: HOSPITALS.map(h=>h.short), datasets: [
+      { label:'Beds', data:HOSPITALS.map(h=>h.beds), backgroundColor:'#4FC3F788', borderColor:'#4FC3F7', borderWidth:1, borderRadius:4 },
+      { label:'Doctors', data:HOSPITALS.map(h=>h.doctors), backgroundColor:'#66BB6A88', borderColor:'#66BB6A', borderWidth:1, borderRadius:4 },
+      { label:'Staff ÷10', data:HOSPITALS.map(h=>Math.round(h.staff/10)), backgroundColor:'#FFB74D88', borderColor:'#FFB74D', borderWidth:1, borderRadius:4 },
+    ]},
+    options: { scales: { x:{}, y:{} } }
+  });
+}
+
+// ═══════════════════════════════════════
+// HOSPITAL PROFILES
+// ═══════════════════════════════════════
+function renderHospitals() {
+  const cards = HOSPITALS.map(h => `
+    <div class="hosp-card ${selectedHosp===h.id?'selected':''}" style="border-left-color:${h.color};border:1px solid ${selectedHosp===h.id?h.color:'var(--border)'};${selectedHosp===h.id?'background:'+h.color+'12':''}" onclick="selectHosp('${h.id}')">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div><div style="font-size:14px;font-weight:700;color:#fff">${h.short}</div><div style="font-size:10px;color:var(--text-muted);margin-top:2px">${h.name}</div></div>
+        ${badge(h.type, h.color)}
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px">
+        <div><span style="color:var(--text-muted)">Beds:</span> <strong>${h.beds}</strong></div>
+        <div><span style="color:var(--text-muted)">Rev:</span> <strong>$${h.estRevenue}M</strong></div>
+        <div><span style="color:var(--text-muted)">Growth:</span> <strong style="color:var(--accent-green)">+${h.growth}%</strong></div>
+        <div><span style="color:var(--text-muted)">Intl:</span> <strong>${h.intlPct}%</strong></div>
+      </div>
+      <div style="margin-top:8px">${stars(h.sat)}</div>
+    </div>`).join('');
+
+  let detail = '';
+  if (selectedHosp) {
+    const h = H(selectedHosp);
+    detail = `<div class="card" style="border-left:3px solid ${h.color};margin-top:8px">
+      <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:16px">
+        <div><div style="font-family:var(--font-display);font-size:20px;font-weight:800;color:#fff">${h.name}</div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--text-secondary);margin-top:4px">${h.location} · Founded ${h.founded} · ${h.ownership}</div></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">${h.jci?badge('JCI '+h.jciYear,'#FFD700'):''}${badge(h.premium?'Premium':'Mid-Tier',h.premium?'#E91E63':'#78909C')}</div>
+      </div>
+      <div class="grid-2">
+        <div>
+          <div class="mini-label" style="margin-bottom:8px">Key Metrics</div>
+          ${[['Bed Capacity',h.beds],['Annual Patients',fmtK(h.estPatients)],['Est. Revenue','$'+h.estRevenue+'M'],['Avg Cost/Visit','$'+h.avgCost],['Intl Patient Mix',h.intlPct+'%'],['Revenue Growth','+'+h.growth+'%'],['Total Staff',fmt(h.staff)],['Physicians',h.doctors],['Insurance Partners',h.insurers],['Digital Score',h.digital+'/100']].map(([l,v])=>`<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.03)"><span style="font-size:12px;color:var(--text-secondary)">${l}</span><span style="font-size:12px;font-weight:700;color:#fff">${v}</span></div>`).join('')}
+        </div>
+        <div>
+          <div class="mini-label" style="margin-bottom:8px">Competitive Radar</div>
+          <div class="chart-container" style="height:220px"><canvas id="chartRadarProfile"></canvas></div>
+          <div class="mini-label" style="margin-top:12px;margin-bottom:6px">Core Specialties</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">${h.specialties.map(s=>badge(s,h.color)).join('')}</div>
+          <div class="mini-label" style="margin-top:12px;margin-bottom:4px">Expansion Plans</div>
+          <div style="font-size:12px;color:var(--text-secondary);line-height:1.6">${h.expansion}</div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  return `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:12px;margin-bottom:18px">${cards}</div>${detail}`;
+}
+window.selectHosp = function(id) { selectedHosp = selectedHosp===id ? null : id; renderContent(); };
+
+function bindHospitalRadar() {
+  if (!selectedHosp) return;
+  const h = H(selectedHosp);
+  const labels = Object.keys(h.strength).map(k=>k[0].toUpperCase()+k.slice(1));
+  makeChart('chartRadarProfile', {
+    type: 'radar',
+    data: { labels, datasets: [{ data: Object.values(h.strength), backgroundColor: h.color+'33', borderColor: h.color, borderWidth: 2, pointBackgroundColor: h.color }] },
+    options: { scales: { r: { beginAtZero:true, max:100, ticks:{display:false}, grid:{color:'rgba(255,255,255,0.06)'}, pointLabels:{color:'rgba(180,200,220,0.5)', font:{family:"'IBM Plex Mono'",size:10}} } }, plugins: { legend:{display:false} } }
+  });
+}
+
+// ═══════════════════════════════════════
+// COMPETITIVE MATRIX
+// ═══════════════════════════════════════
+function renderCompare() {
+  const sel = HOSPITALS.filter(h=>compareSet.has(h.id));
+  const toggles = HOSPITALS.map(h=>`<button class="toggle-btn ${compareSet.has(h.id)?'on':''}" style="${compareSet.has(h.id)?'border-color:'+h.color+';color:'+h.color+';background:'+h.color+'22':''}" onclick="toggleCompare('${h.id}')">${h.short}</button>`).join('');
+
+  const rows = [
+    {l:'Type',k:'type'},{l:'Beds',k:'beds'},{l:'JCI',k:'jci',f:v=>v?'✓':'—'},{l:'Revenue',k:'estRevenue',f:v=>'$'+v+'M'},
+    {l:'Patients',k:'estPatients',f:v=>fmtK(v)},{l:'Intl %',k:'intlPct',f:v=>v+'%'},{l:'Cost/Visit',k:'avgCost',f:v=>'$'+v},
+    {l:'Growth',k:'growth',f:v=>'+'+v+'%'},{l:'Satisfaction',k:'sat',f:v=>v+'/5'},{l:'Digital',k:'digital',f:v=>v+'/100'},{l:'Share',k:'share',f:v=>v+'%'},
+  ];
+  const ths = `<th>Metric</th>${sel.map(h=>`<th style="color:${h.color}">${h.short}</th>`).join('')}`;
+  const trs = rows.map(r=>`<tr><td>${r.l}</td>${sel.map(h=>`<td style="color:#fff">${r.f?r.f(h[r.k]):h[r.k]}</td>`).join('')}</tr>`).join('');
+
+  return `
+    <div class="card" style="padding:14px 18px"><div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px">Toggle hospitals to compare:</div><div style="display:flex;flex-wrap:wrap;gap:8px">${toggles}</div></div>
+    ${sel.length?`
+    <div class="card"><div class="card-title">🎯 Multi-Dimensional Comparison</div><div class="chart-container" style="height:320px"><canvas id="chartRadarCompare"></canvas></div></div>
+    <div class="card"><div class="card-title">📋 Head-to-Head Metrics</div><div style="overflow-x:auto"><table class="data-table" style="min-width:560px"><thead><tr>${ths}</tr></thead><tbody>${trs}</tbody></table></div></div>`:'<div class="card" style="text-align:center;padding:40px;color:var(--text-muted)">Select hospitals above to compare</div>'}`;
+}
+window.toggleCompare = function(id) { compareSet.has(id)?compareSet.delete(id):compareSet.add(id); renderContent(); };
+
+function bindCompare() {
+  const sel = HOSPITALS.filter(h=>compareSet.has(h.id));
+  if (!sel.length) return;
+  const dims = ['quality','tech','brand','access','price','intl'];
+  makeChart('chartRadarCompare', {
+    type: 'radar',
+    data: { labels: dims.map(d=>d[0].toUpperCase()+d.slice(1)), datasets: sel.map(h=>({ label:h.short, data:dims.map(d=>h.strength[d]), backgroundColor:h.color+'22', borderColor:h.color, borderWidth:2, pointBackgroundColor:h.color })) },
+    options: { scales: { r: { beginAtZero:true, max:100, ticks:{display:false}, grid:{color:'rgba(255,255,255,0.06)'}, pointLabels:{color:'rgba(180,200,220,0.5)', font:{family:"'IBM Plex Mono'",size:11}} } } }
+  });
+}
+
+// ═══════════════════════════════════════
+// STRATEGIC MAP
+// ═══════════════════════════════════════
+function renderPositioning() {
+  const bubbles = HOSPITALS.map(h => {
+    const qN = (h.strength.quality-70)/30, pN = 1-(h.strength.price-35)/65;
+    const x = pN*82+8, y = (1-qN)*82+8, sz = Math.max(22, h.share*2.8);
+    return `<div class="pos-bubble" style="left:${x}%;top:${y}%"><div class="pos-dot" style="width:${sz}px;height:${sz}px;background:${h.color}55;border:2px solid ${h.color}">${h.share}%</div><div class="pos-label" style="color:${h.color}">${h.short}</div></div>`;
+  }).join('');
+
+  return `
+  <div class="card"><div class="card-title">🗺️ Strategic Positioning: Price vs. Quality</div>
+    <div class="pos-map">
+      <div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px">↑ Higher Quality</div>
+      <div style="position:absolute;bottom:10px;right:16px;font-family:var(--font-mono);font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px">Higher Price →</div>
+      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:90%;height:90%">
+        <div style="position:absolute;width:100%;height:1px;top:50%;background:rgba(255,255,255,0.05)"></div>
+        <div style="position:absolute;height:100%;width:1px;left:50%;background:rgba(255,255,255,0.05)"></div>
+        <div style="position:absolute;top:6px;left:6px;font-family:var(--font-mono);font-size:8px;color:var(--text-muted)">VALUE PLAY</div>
+        <div style="position:absolute;top:6px;right:6px;font-family:var(--font-mono);font-size:8px;color:var(--text-muted);text-align:right">PREMIUM</div>
+        <div style="position:absolute;bottom:6px;left:6px;font-family:var(--font-mono);font-size:8px;color:var(--text-muted)">MASS MARKET</div>
+        <div style="position:absolute;bottom:6px;right:6px;font-family:var(--font-mono);font-size:8px;color:var(--text-muted);text-align:right">NICHE</div>
+        ${bubbles}
+      </div>
+    </div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><div class="card-title">🚀 Growth vs. Market Share</div><div class="chart-container" style="height:250px"><canvas id="chartGrowth"></canvas></div></div>
+    <div class="card"><div class="card-title">💻 Digital Readiness Score</div>
+      ${[...HOSPITALS].sort((a,b)=>b.digital-a.digital).map(h=>`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px"><span style="font-weight:600;color:${h.color};font-family:var(--font-mono)">${h.short}</span><span style="color:#fff;font-weight:700;font-family:var(--font-mono)">${h.digital}/100</span></div><div class="progress-bar"><div class="progress-fill" style="width:${h.digital}%;background:linear-gradient(90deg,${h.color}88,${h.color})"></div></div></div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function bindPositioning() {
+  const sorted = [...HOSPITALS].sort((a,b)=>b.growth-a.growth);
+  makeChart('chartGrowth', {
+    type:'bar',
+    data:{ labels:sorted.map(h=>h.short), datasets:[
+      { label:'Growth %', data:sorted.map(h=>h.growth), backgroundColor:'#66BB6A88', borderColor:'#66BB6A', borderWidth:1, borderRadius:4 },
+      { label:'Market Share %', data:sorted.map(h=>h.share), backgroundColor:'#4FC3F788', borderColor:'#4FC3F7', borderWidth:1, borderRadius:4 },
+    ]},
+    options:{ scales:{ x:{}, y:{} } }
+  });
+}
+
+// ═══════════════════════════════════════
+// CAPTURE SIMULATOR
+// ═══════════════════════════════════════
+function renderSimulator() {
+  const pool = SPECIALTY_POOLS[simSpec];
+  const yM = Math.pow(1+pool.gDom/100, simYear);
+  const yMI = Math.pow(1+pool.gIntl/100, simYear);
+  const totalD = Math.round(pool.dom*yM);
+  const totalI = Math.round(pool.intl*yMI);
+  const sh = simShares[simSpec];
+  const tDA = SIM_IDS.reduce((s,id)=>s+sh[id].d, 0);
+  const tIA = SIM_IDS.reduce((s,id)=>s+sh[id].i, 0);
+
+  const td = SIM_IDS.map(id => {
+    const h = H(id);
+    const dP = Math.round(totalD*sh[id].d/100), iP = Math.round(totalI*sh[id].i/100);
+    const dR = Math.round(dP*pool.rDom/1e6*10)/10, iR = Math.round(iP*pool.rIntl/1e6*10)/10;
+    return { id, name:h.short, color:h.color, dS:sh[id].d, iS:sh[id].i, dP, iP, tP:dP+iP, dR, iR, tR:Math.round((dR+iR)*10)/10 };
+  });
+
+  const specBtns = Object.keys(SPECIALTY_POOLS).map(sp=>`<button class="spec-btn ${simSpec===sp?'active':''}" onclick="setSimSpec('${sp}')">${sp==='hvti'?'HVTI':sp[0].toUpperCase()+sp.slice(1)}</button>`).join('');
+
+  const sliderCards = SIM_IDS.map(id => {
+    const h = H(id);
+    return `<div class="sim-hosp-card" style="background:${h.color}08;border:1px solid ${h.color}22">
+      <div style="font-family:var(--font-mono);font-size:13px;font-weight:700;color:${h.color};margin-bottom:12px">${h.short}</div>
+      ${['d','i'].map(type => `<div style="margin-bottom:${type==='d'?'12':'0'}px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px"><span style="font-size:11px;color:var(--text-secondary)">${type==='d'?'Domestic':'International'} Capture</span><span style="font-family:var(--font-mono);font-size:13px;font-weight:800;color:#fff" id="lbl_${id}_${type}">${sh[id][type]}%</span></div>
+        <input type="range" min="0" max="60" value="${sh[id][type]}" oninput="updateSim('${id}','${type}',this.value)">
+        <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--text-muted)"><span>0%</span><span>60%</span></div>
+      </div>`).join('')}
+    </div>`;
+  }).join('');
+
+  const trs = td.map(d=>`<tr>
+    <td style="font-weight:700;color:${d.color};font-family:var(--font-mono)">${d.name}</td>
+    <td>${d.dS}%</td><td>${d.iS}%</td>
+    <td style="color:var(--accent-green);font-weight:600">${fmt(d.dP)}</td>
+    <td style="color:var(--accent-cyan);font-weight:600">${fmt(d.iP)}</td>
+    <td style="font-weight:700">${fmt(d.tP)}</td>
+    <td style="color:var(--accent-amber)">$${d.dR}M</td>
+    <td style="color:var(--accent-purple)">$${d.iR}M</td>
+    <td style="font-weight:800">$${d.tR}M</td>
+  </tr>`).join('');
+
+  const totRow = `<tr style="border-top:2px solid rgba(255,255,255,0.1)">
+    <td style="font-weight:700;color:var(--text-secondary)">TOTAL</td>
+    <td style="color:${tDA>100?'var(--accent-red)':'#fff'};font-weight:600">${tDA}%</td>
+    <td style="color:${tIA>100?'var(--accent-red)':'#fff'};font-weight:600">${tIA}%</td>
+    <td style="color:var(--accent-green);font-weight:700">${fmt(td.reduce((s,d)=>s+d.dP,0))}</td>
+    <td style="color:var(--accent-cyan);font-weight:700">${fmt(td.reduce((s,d)=>s+d.iP,0))}</td>
+    <td style="font-weight:800">${fmt(td.reduce((s,d)=>s+d.tP,0))}</td>
+    <td colspan="2"></td>
+    <td style="color:var(--accent-amber);font-weight:800;font-size:14px">$${td.reduce((s,d)=>s+d.tR,0).toFixed(1)}M</td>
+  </tr>`;
+
+  return `
+  <div class="card card-accent-top">
+    <div class="card-title"><span style="font-size:18px">🎛️</span> Patient Capture Simulator</div>
+    <div style="font-size:12px;color:var(--text-secondary);margin-bottom:16px;line-height:1.6">Model how top competitors capture domestic and international patient volume across HVTI, Oncology, and Neurology. Adjust share sliders and projection year to see volume and revenue impact in real time.</div>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;align-items:center">
+      ${specBtns}
+      <div style="margin-left:auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <span style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted)">Year:</span>
+        <span style="font-family:var(--font-display);font-size:16px;font-weight:800;color:var(--accent-amber);min-width:48px" id="yearLabel">${2024+simYear}</span>
+        <input type="range" min="0" max="5" value="${simYear}" style="width:110px" oninput="setSimYear(this.value)">
+        <button class="toggle-btn" onclick="resetSim()" style="font-size:10px">Reset</button>
+      </div>
+    </div>
+
+    <div class="kpi-row">
+      <div class="kpi-box"><div class="kpi-value" style="font-size:11px;color:var(--accent-amber)">${pool.label}</div><div class="kpi-label">Specialty</div></div>
+      <div class="kpi-box"><div class="kpi-value" style="font-size:18px">${fmt(totalD)}</div><div class="kpi-label">Domestic Pool</div></div>
+      <div class="kpi-box"><div class="kpi-value" style="font-size:18px">${fmt(totalI)}</div><div class="kpi-label">Intl Pool</div></div>
+      <div class="kpi-box"><div class="kpi-value" style="font-size:18px">$${fmt(pool.rDom)}</div><div class="kpi-label">Rev/Pat (Dom)</div></div>
+      <div class="kpi-box"><div class="kpi-value" style="font-size:18px">$${fmt(pool.rIntl)}</div><div class="kpi-label">Rev/Pat (Intl)</div></div>
+    </div>
+
+    <div id="allocWarn" class="alloc-warn" ${(tDA>100||tIA>100)?'style="display:block"':''}>⚠️ Allocation exceeds 100% — ${tDA>100?'Dom: '+tDA+'%  ':''}${tIA>100?'Intl: '+tIA+'%':''}</div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:14px;margin-bottom:20px">
+      ${sliderCards}
+      <div style="background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;padding:16px;display:flex;flex-direction:column;justify-content:center;align-items:center">
+        <div class="mini-label" style="margin-bottom:14px">Unallocated (Others)</div>
+        <div style="display:flex;gap:28px">
+          <div style="text-align:center"><div style="font-family:var(--font-display);font-size:30px;font-weight:800;color:${Math.max(0,100-tDA)>0?'var(--accent-green)':'var(--accent-red)'}" id="remainDom">${Math.max(0,100-tDA)}%</div><div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">Domestic</div></div>
+          <div style="text-align:center"><div style="font-family:var(--font-display);font-size:30px;font-weight:800;color:${Math.max(0,100-tIA)>0?'var(--accent-cyan)':'var(--accent-red)'}" id="remainIntl">${Math.max(0,100-tIA)}%</div><div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted)">International</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card" style="margin-bottom:0"><div class="card-title">👥 Patient Volume</div><div class="chart-container" style="height:250px"><canvas id="chartSimPat"></canvas></div></div>
+      <div class="card" style="margin-bottom:0"><div class="card-title">💵 Revenue ($M)</div><div class="chart-container" style="height:250px"><canvas id="chartSimRev"></canvas></div></div>
+    </div>
+
+    <div class="card" style="margin-top:16px;margin-bottom:0"><div class="card-title">📊 Capture Summary</div>
+      <div style="overflow-x:auto"><table class="data-table" style="min-width:680px">
+        <thead><tr><th style="text-align:left">Hospital</th><th>Dom %</th><th>Intl %</th><th>Dom Patients</th><th>Intl Patients</th><th>Total Patients</th><th>Dom Rev</th><th>Intl Rev</th><th>Total Rev</th></tr></thead>
+        <tbody>${trs}${totRow}</tbody>
+      </table></div>
+    </div>
+  </div>`;
+}
+
+function bindSimulator() {
+  const td = calcSimData();
+  makeChart('chartSimPat', {
+    type:'bar',
+    data:{ labels:td.map(d=>d.name), datasets:[
+      { label:'Domestic', data:td.map(d=>d.dP), backgroundColor:'#66BB6A88', borderColor:'#66BB6A', borderWidth:1, borderRadius:{topLeft:0,topRight:0} },
+      { label:'International', data:td.map(d=>d.iP), backgroundColor:'#4FC3F788', borderColor:'#4FC3F7', borderWidth:1, borderRadius:4 },
+    ]},
+    options:{ scales:{ x:{stacked:true}, y:{stacked:true, ticks:{callback:v=>fmtK(v)}} } }
+  });
+  makeChart('chartSimRev', {
+    type:'bar',
+    data:{ labels:td.map(d=>d.name), datasets:[
+      { label:'Dom Rev ($M)', data:td.map(d=>d.dR), backgroundColor:'#FFB74D88', borderColor:'#FFB74D', borderWidth:1 },
+      { label:'Intl Rev ($M)', data:td.map(d=>d.iR), backgroundColor:'#AB47BC88', borderColor:'#AB47BC', borderWidth:1, borderRadius:4 },
+    ]},
+    options:{ scales:{ x:{stacked:true}, y:{stacked:true} } }
+  });
+}
+
+function calcSimData() {
+  const pool = SPECIALTY_POOLS[simSpec];
+  const yM = Math.pow(1+pool.gDom/100, simYear), yMI = Math.pow(1+pool.gIntl/100, simYear);
+  const totalD = Math.round(pool.dom*yM), totalI = Math.round(pool.intl*yMI);
+  const sh = simShares[simSpec];
+  return SIM_IDS.map(id => {
+    const h = H(id);
+    const dP = Math.round(totalD*sh[id].d/100), iP = Math.round(totalI*sh[id].i/100);
+    const dR = Math.round(dP*pool.rDom/1e6*10)/10, iR = Math.round(iP*pool.rIntl/1e6*10)/10;
+    return { id, name:h.short, color:h.color, dS:sh[id].d, iS:sh[id].i, dP, iP, tP:dP+iP, dR, iR, tR:Math.round((dR+iR)*10)/10 };
+  });
+}
+
+window.setSimSpec = function(sp) { simSpec = sp; renderContent(); };
+window.setSimYear = function(v) { simYear = Number(v); renderContent(); };
+window.resetSim = function() { simShares = JSON.parse(JSON.stringify(DEFAULT_SHARES)); renderContent(); };
+window.updateSim = function(id, type, val) {
+  simShares[simSpec][id][type] = Math.max(0, Math.min(60, Number(val)));
+  // Fast re-render without full DOM rebuild
+  renderContent();
+};
+
+// ═══════════════════════════════════════
+// MEDICAL TOURISM
+// ═══════════════════════════════════════
+function renderMedTourism() {
+  const costRows = COST_COMP.map(r => {
+    const sav = Math.round((1-r.hcmc/r.sg)*100);
+    return `<tr><td style="font-weight:600;color:#fff">${r.proc}</td><td style="color:var(--accent-teal);font-weight:800">$${fmt(r.hcmc)}</td><td>$${fmt(r.bkk)}</td><td>$${fmt(r.kl)}</td><td>$${fmt(r.seoul)}</td><td>$${fmt(r.sg)}</td><td><span class="savings-pill">-${sav}%</span></td></tr>`;
+  }).join('');
+
+  const hubCards = [
+    { hub:"Bangkok", icon:"🇹🇭", str:"60+ JCI hospitals, wellness tourism, govt promotion", weak:"Higher costs, political risk", edge:"50-65% lower costs, growing quality credentials" },
+    { hub:"Singapore", icon:"🇸🇬", str:"World-class quality, regulatory trust, R&D hub", weak:"Very high costs, small capacity", edge:"60-85% lower costs, comparable outcomes" },
+    { hub:"Kuala Lumpur", icon:"🇲🇾", str:"MHTC promotion, halal tourism, competitive pricing", weak:"Smaller specialty range", edge:"30-45% lower, stronger dental & fertility" },
+    { hub:"Seoul", icon:"🇰🇷", str:"Aesthetics leader, advanced cancer care, K-wave halo", weak:"Language barriers, high non-aesthetic costs", edge:"60-75% lower, Korean patient inflow growing" },
+  ].map(c=>`<div style="background:rgba(255,255,255,0.02);border-radius:10px;padding:14px;border:1px solid var(--border)">
+    <div style="font-size:15px;margin-bottom:6px">${c.icon} <strong style="color:#fff;font-size:13px">${c.hub}</strong></div>
+    ${[['Their Strengths','var(--accent-green)',c.str],['Their Weaknesses','var(--accent-red)',c.weak],["HCMC's Edge",'var(--accent-teal)',c.edge]].map(([l,col,t])=>`<div style="margin-bottom:6px"><div class="mini-label" style="color:${col};margin-bottom:2px">${l}</div><div style="font-size:11px;color:${l.includes('Edge')?'rgba(200,210,220,0.85)':'var(--text-secondary)'};line-height:1.5">${t}</div></div>`).join('')}
+  </div>`).join('');
+
+  return `
+  <div class="card card-accent-teal">
+    <div class="card-title"><span style="font-size:18px">✈️</span> HCMC Medical Tourism — Competitive Analysis</div>
+    <div style="font-size:12px;color:var(--text-secondary);line-height:1.6">Source markets, cost benchmarking vs. regional hubs, hospital-level capture, and growth projections.</div>
+  </div>
+
+  <div class="kpi-row">
+    ${[{v:'155K+',l:'Intl Patients (2024)',c:'var(--accent-teal)'},{v:'$580M',l:'Tourism Revenue',c:'var(--accent-green)'},{v:'22%',l:'YoY Growth',c:'var(--accent-amber)'},{v:'60-80%',l:'Savings vs. SG',c:'var(--accent-purple)'},{v:'8',l:'Source Markets',c:'var(--accent-cyan)'},{v:'2',l:'JCI Hospitals',c:'var(--accent-gold)'}].map(k=>`<div class="kpi-box"><div class="kpi-value" style="color:${k.c};font-size:21px">${k.v}</div><div class="kpi-label">${k.l}</div></div>`).join('')}
+  </div>
+
+  <div class="grid-2">
+    <div class="card"><div class="card-title">🌏 Source Markets — Patient Volume</div><div class="chart-container" style="height:280px"><canvas id="chartTourVol"></canvas></div></div>
+    <div class="card"><div class="card-title">💳 Average Spend per Patient</div><div class="chart-container" style="height:280px"><canvas id="chartTourSpend"></canvas></div></div>
+  </div>
+
+  <div class="card"><div class="card-title">💰 Procedure Cost — HCMC vs. Regional Competitors (USD)</div>
+    <div style="overflow-x:auto"><table class="data-table" style="min-width:680px">
+      <thead><tr><th style="text-align:left">Procedure</th><th style="color:var(--accent-teal)">HCMC</th><th>Bangkok</th><th>KL</th><th>Seoul</th><th>Singapore</th><th>Savings vs SG</th></tr></thead>
+      <tbody>${costRows}</tbody>
+    </table></div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card"><div class="card-title">📈 Growth Projection (2022–2028E)</div><div class="chart-container" style="height:260px"><canvas id="chartTourProj"></canvas></div></div>
+    <div class="card"><div class="card-title">🏥 Hospital Tourism Share</div><div class="chart-container" style="height:200px"><canvas id="chartTourShare"></canvas></div>
+      ${HOSP_TOURISM.map(h=>`<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px"><span style="width:8px;height:8px;border-radius:50%;background:${h.color};flex-shrink:0"></span><span style="font-family:var(--font-mono);font-size:11px;color:#fff;font-weight:600;min-width:58px">${h.name} (${h.share}%)</span><span style="font-size:10px;color:var(--text-muted)">${h.focus}</span></div>`).join('')}
+    </div>
+  </div>
+
+  <div class="card"><div class="card-title">🆚 HCMC vs. Regional Med Tourism Hubs</div><div class="grid-4">${hubCards}</div></div>
+
+  <div class="card"><div class="card-title">📌 Strategic Takeaways</div>
+    <div style="font-size:12px;color:var(--text-secondary);line-height:1.8">
+      <p style="margin-bottom:10px"><strong style="color:var(--accent-teal)">Cost leadership is HCMC's primary weapon</strong> — procedure costs run 50-85% below Singapore and 30-60% below Bangkok, with the gap widening for complex interventions.</p>
+      <p style="margin-bottom:10px"><strong style="color:var(--accent-amber)">Diaspora (Viet Kieu) is underexploited</strong> — ~18K patients/year from US, Europe, AU/NZ represent high-spend travelers with cultural ties. Bundling healthcare with family visits is a natural channel.</p>
+      <p style="margin-bottom:10px"><strong style="color:var(--accent-green)">JCI accreditation is the trust bottleneck</strong> — with only FV and Vinmec holding JCI, the pipeline of internationally credentialed facilities is thin.</p>
+      <p><strong style="color:var(--accent-purple)">Specialty niches are the differentiation path</strong> — HCMC should double down on fertility/IVF, dental, and cardiac where cost advantages are largest and outcomes increasingly competitive.</p>
+    </div>
+  </div>`;
+}
+
+function bindMedTourism() {
+  const sorted = [...TOURISM_SOURCES].sort((a,b)=>b.patients-a.patients);
+  makeChart('chartTourVol', {
+    type:'bar',
+    data:{ labels:sorted.map(s=>s.country), datasets:[{ data:sorted.map(s=>s.patients), backgroundColor:sorted.map(s=>s.color+'88'), borderColor:sorted.map(s=>s.color), borderWidth:1, borderRadius:4 }] },
+    options:{ indexAxis:'y', scales:{ x:{ticks:{callback:v=>fmtK(v)}}, y:{} }, plugins:{legend:{display:false}} }
+  });
+  const sortedSpend = [...TOURISM_SOURCES].sort((a,b)=>b.spend-a.spend);
+  makeChart('chartTourSpend', {
+    type:'bar',
+    data:{ labels:sortedSpend.map(s=>s.country), datasets:[{ data:sortedSpend.map(s=>s.spend), backgroundColor:sortedSpend.map(s=>s.color+'88'), borderColor:sortedSpend.map(s=>s.color), borderWidth:1, borderRadius:4 }] },
+    options:{ indexAxis:'y', scales:{ x:{ticks:{callback:v=>'$'+(v/1000).toFixed(1)+'K'}}, y:{} }, plugins:{legend:{display:false}} }
+  });
+  makeChart('chartTourProj', {
+    type:'line',
+    data:{ labels:TOURISM_PROJ.map(t=>t.year), datasets:[
+      { label:'Patients (K)', data:TOURISM_PROJ.map(t=>t.pat), borderColor:'#26C6DA', backgroundColor:'rgba(38,198,218,0.1)', fill:true, tension:0.3, yAxisID:'y' },
+      { label:'Revenue ($M)', data:TOURISM_PROJ.map(t=>t.rev), borderColor:'#FFB74D', backgroundColor:'rgba(255,183,77,0.1)', fill:true, tension:0.3, yAxisID:'y1' },
+    ]},
+    options:{ scales:{ x:{}, y:{position:'left'}, y1:{position:'right', grid:{display:false}} } }
+  });
+  makeChart('chartTourShare', {
+    type:'doughnut',
+    data:{ labels:HOSP_TOURISM.map(h=>h.name), datasets:[{ data:HOSP_TOURISM.map(h=>h.share), backgroundColor:HOSP_TOURISM.map(h=>h.color), borderWidth:0 }] },
+    options:{ cutout:'50%', plugins:{legend:{display:false}} }
+  });
+}
+
+// ═══════════════════════════════════════
+// TRENDS
+// ═══════════════════════════════════════
+function renderTrends() {
+  const signals = [
+    { i:"🏗️", t:"Capacity Expansion", d:"8,000+ new private beds planned by 2027. Tam Anh and Vinmec leading multi-campus strategies." },
+    { i:"🤖", t:"AI & Health-Tech", d:"Vinmec investing in AI diagnostics. VinBrain developing FDA-pathway imaging tools." },
+    { i:"🌏", t:"Medical Tourism", d:"Government targeting $2B tourism revenue by 2030. HCMC positioned as dental, ortho, and fertility hub." },
+    { i:"📱", t:"Telemedicine", d:"40% of private hospitals now offer digital consultations. Post-COVID acceleration continuing." },
+    { i:"💼", t:"PE/VC Activity", d:"TPG, VinaCapital, and regional funds actively exploring hospital chains." },
+    { i:"⚕️", t:"Workforce Gap", d:"Critical specialist shortage. Aggressive competition for cardiologists, oncologists, and surgeons." },
+  ];
+  return `
+  <div class="grid-2">
+    <div class="card"><div class="card-title">⚖️ Private vs. Public Share Shift</div><div class="chart-container" style="height:250px"><canvas id="chartPvP"></canvas></div></div>
+    <div class="card"><div class="card-title">✈️ Medical Tourism Revenue ($M)</div><div class="chart-container" style="height:250px"><canvas id="chartMTRev"></canvas></div></div>
+  </div>
+  <div class="card"><div class="card-title">📡 Digital Health Adoption</div><div class="chart-container" style="height:210px"><canvas id="chartDH"></canvas></div></div>
+  <div class="card"><div class="card-title">🔮 Key Market Signals</div><div class="grid-3">${signals.map(s=>`<div style="background:rgba(255,255,255,0.02);border-radius:10px;padding:14px;border:1px solid var(--border)"><div style="font-size:20px;margin-bottom:6px">${s.i}</div><div style="font-size:13px;font-weight:700;color:#fff;margin-bottom:4px">${s.t}</div><div style="font-size:11px;color:var(--text-secondary);line-height:1.6">${s.d}</div></div>`).join('')}</div></div>`;
+}
+
+function bindTrends() {
+  makeChart('chartPvP', {
+    type:'line',
+    data:{ labels:TRENDS.map(t=>t.y), datasets:[
+      { label:'Private %', data:TRENDS.map(t=>t.priv), borderColor:'#4FC3F7', backgroundColor:'rgba(79,195,247,0.1)', fill:true, tension:0.3 },
+      { label:'Public %', data:TRENDS.map(t=>t.pub), borderColor:'#EF5350', backgroundColor:'rgba(239,83,80,0.1)', fill:true, tension:0.3 },
+    ]},
+    options:{ scales:{ x:{}, y:{min:0,max:100} } }
+  });
+  makeChart('chartMTRev', {
+    type:'bar',
+    data:{ labels:TRENDS.map(t=>t.y), datasets:[{ label:'Rev ($M)', data:TRENDS.map(t=>t.mt), backgroundColor:'#FFB74D88', borderColor:'#FFB74D', borderWidth:1, borderRadius:4 }] },
+    options:{ scales:{ x:{}, y:{} }, plugins:{legend:{display:false}} }
+  });
+  makeChart('chartDH', {
+    type:'line',
+    data:{ labels:TRENDS.map(t=>t.y), datasets:[{ label:'Digital Index', data:TRENDS.map(t=>t.dh), borderColor:'#AB47BC', backgroundColor:'rgba(171,71,188,0.1)', fill:true, tension:0.3 }] },
+    options:{ scales:{ x:{}, y:{min:0,max:100} } }
+  });
+}
+
+// ═══════════════════════════════════════
+// SWOT
+// ═══════════════════════════════════════
+function renderSwot() {
+  const secs = [
+    { k:'s', l:'Strengths', i:'💪', c:'#66BB6A', cls:'swot-s' },
+    { k:'w', l:'Weaknesses', i:'⚠️', c:'#EF5350', cls:'swot-w' },
+    { k:'o', l:'Opportunities', i:'🎯', c:'#4FC3F7', cls:'swot-o' },
+    { k:'t', l:'Threats', i:'🔥', c:'#FFB74D', cls:'swot-t' },
+  ];
+  return `
+  <div class="grid-4">${secs.map(sec=>`<div class="card ${sec.cls}">
+    <div style="font-family:var(--font-display);font-size:15px;font-weight:700;color:${sec.c};margin-bottom:12px;display:flex;align-items:center;gap:8px"><span>${sec.i}</span> ${sec.l}</div>
+    ${SWOT[sec.k].map(item=>`<div style="display:flex;gap:8px;margin-bottom:10px;align-items:flex-start"><span style="width:6px;height:6px;border-radius:50%;background:${sec.c};margin-top:5px;flex-shrink:0"></span><span style="font-size:12px;color:rgba(200,210,220,0.8);line-height:1.6">${item}</span></div>`).join('')}
+  </div>`).join('')}</div>
+  <div class="card" style="margin-top:16px"><div class="card-title">📌 Competitive Landscape Summary</div>
+    <div style="font-size:12px;color:var(--text-secondary);line-height:1.8">
+      <p style="margin-bottom:12px">Southern Vietnam's healthcare market is at an inflection point. The private sector is rapidly closing the quality gap, driven by Vingroup, Tam Anh, and foreign capital.</p>
+      <p style="margin-bottom:12px"><strong style="color:#fff">FV</strong> leads international capture. <strong style="color:#fff">Vinmec</strong> leverages Vingroup's ecosystem. <strong style="color:#fff">Tam Anh</strong> is scaling fastest with accessibility-first positioning. <strong style="color:#fff">AIH</strong> targets medical tourism. <strong style="color:#fff">Cho Ray</strong> retains volume dominance but faces structural constraints.</p>
+      <p>Physician shortages, specialty gaps, rising middle-class demand, and untapped medical tourism create significant openings for well-capitalized, tech-enabled players.</p>
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+renderTabBar();
+renderContent();
+</script>
+</body>
+</html>
